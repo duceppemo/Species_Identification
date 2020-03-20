@@ -1,0 +1,136 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##bcftoolsVersion=1.9+htslib-1.9
+##bcftoolsCommand=mpileup --threads 12 -O u --fasta-ref /media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/pilon/MBWGS196_polished_3.fasta /home/bioinfo/Desktop/Andrea/Identification_Artifacts/trying_vcf_call/bam_processing/all_short_merged.bam
+##reference=file:///media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/pilon/MBWGS196_polished_3.fasta
+##contig=<ID=0_segment0_pilon_pilon_pilon_pilon,length=4353922>
+##ALT=<ID=*,Description="Represents allele(s) other than observed.">
+##INFO=<ID=INDEL,Number=0,Type=Flag,Description="Indicates that the variant is an INDEL.">
+##INFO=<ID=IDV,Number=1,Type=Integer,Description="Maximum number of reads supporting an indel">
+##INFO=<ID=IMF,Number=1,Type=Float,Description="Maximum fraction of reads supporting an indel">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
+##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias for filtering splice-site artefacts in RNA-seq data (bigger is better)",Version="3">
+##INFO=<ID=RPB,Number=1,Type=Float,Description="Mann-Whitney U test of Read Position Bias (bigger is better)">
+##INFO=<ID=MQB,Number=1,Type=Float,Description="Mann-Whitney U test of Mapping Quality Bias (bigger is better)">
+##INFO=<ID=BQB,Number=1,Type=Float,Description="Mann-Whitney U test of Base Quality Bias (bigger is better)">
+##INFO=<ID=MQSB,Number=1,Type=Float,Description="Mann-Whitney U test of Mapping Quality vs Strand Bias (bigger is better)">
+##INFO=<ID=SGB,Number=1,Type=Float,Description="Segregation based metric.">
+##INFO=<ID=MQ0F,Number=1,Type=Float,Description="Fraction of MQ0 reads (smaller is better)">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="List of Phred-scaled genotype likelihoods">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##INFO=<ID=ICB,Number=1,Type=Float,Description="Inbreeding Coefficient Binomial test (bigger is better)">
+##INFO=<ID=HOB,Number=1,Type=Float,Description="Bias in the number of HOMs number (smaller is better)">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=DP4,Number=4,Type=Integer,Description="Number of high-quality ref-forward , ref-reverse, alt-forward and alt-reverse bases">
+##INFO=<ID=MQ,Number=1,Type=Integer,Description="Average mapping quality">
+##bcftools_callVersion=1.9+htslib-1.9
+##bcftools_callCommand=call -Ov -m -v --ploidy 1 -o /home/bioinfo/Desktop/Andrea/Identification_Artifacts/trying_vcf_call/shortread_variant_call.vcf; Date=Fri Mar 20 12:43:34 2020
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	/home/bioinfo/Desktop/Andrea/Identification_Artifacts/trying_vcf_call/bam_processing/all_short_merged.bam
+0_segment0_pilon_pilon_pilon_pilon	100887	.	ACC	AC	74	.	INDEL;IDV=8;IMF=0.8;DP=10;VDB=0.988323;SGB=-0.636426;MQ0F=0.1;AC=1;AN=1;DP4=3,0,7,0;MQ=36	GT:PL	1:119,18
+0_segment0_pilon_pilon_pilon_pilon	139389	.	TCCC	TCCCC	7.57731	.	INDEL;IDV=3;IMF=1;DP=3;VDB=0.0411132;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,1,0,2;MQ=60	GT:PL	1:52,18
+0_segment0_pilon_pilon_pilon_pilon	140417	.	GCC	GC	8.21674	.	INDEL;IDV=10;IMF=0.833333;DP=12;VDB=0.575341;SGB=-0.616816;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,4,0,6;MQ=60	GT:PL	1:91,56
+0_segment0_pilon_pilon_pilon_pilon	140422	.	G	C	45.2476	.	DP=11;VDB=0.100042;SGB=-0.662043;RPB=1;MQB=1;MQSB=1;BQB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,0,9;MQ=60	GT:PL	1:72,0
+0_segment0_pilon_pilon_pilon_pilon	165070	.	CGGGGG	CGGGGGG	41.186	.	INDEL;IDV=4;IMF=0.666667;DP=6;VDB=0.974085;SGB=-0.590765;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,4,1;MQ=60	GT:PL	1:68,0
+0_segment0_pilon_pilon_pilon_pilon	165248	.	TGCCCTC	T	225	.	INDEL;IDV=12;IMF=1;DP=12;VDB=0.00368066;SGB=-0.680642;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,3,9;MQ=60	GT:PL	1:255,0
+0_segment0_pilon_pilon_pilon_pilon	170407	.	CGG	CGGG	143	.	INDEL;IDV=8;IMF=0.888889;DP=9;VDB=0.0718443;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,1,7,1;MQ=60	GT:PL	1:170,0
+0_segment0_pilon_pilon_pilon_pilon	353193	.	G	C	11.7172	.	DP=2;VDB=0.1;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,2,0;MQ=60	GT:PL	1:41,0
+0_segment0_pilon_pilon_pilon_pilon	485347	.	ACCCCC	ACCCCCCCC	188	.	INDEL;IDV=10;IMF=0.625;DP=16;VDB=0.991617;SGB=-0.676189;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,3,5,6;MQ=60	GT:PL	1:255,40
+0_segment0_pilon_pilon_pilon_pilon	551284	.	TCCCCC	TCCCCCCC	101	.	INDEL;IDV=9;IMF=0.75;DP=12;VDB=0.999615;SGB=-0.636426;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,3,2,5;MQ=60	GT:PL	1:174,46
+0_segment0_pilon_pilon_pilon_pilon	553432	.	ACCCCCC	ACCCCCCC	90	.	INDEL;IDV=12;IMF=1;DP=12;VDB=0.309523;SGB=-0.676189;MQSB=0.95494;MQ0F=0;AC=1;AN=1;DP4=1,0,4,7;MQ=60	GT:PL	1:117,0
+0_segment0_pilon_pilon_pilon_pilon	685000	.	TGCGCGCGC	TGCGCGCGCGC	10.7919	.	INDEL;IDV=1;IMF=1;DP=1;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=40	GT:PL	1:40,0
+0_segment0_pilon_pilon_pilon_pilon	685455	.	G	A	126	.	DP=13;VDB=0.0935621;SGB=-0.680642;MQ0F=0.0769231;AC=1;AN=1;DP4=0,0,0,12;MQ=36	GT:PL	1:156,0
+0_segment0_pilon_pilon_pilon_pilon	821612	.	TCCCCC	TCCCCCC	9.19037	.	INDEL;IDV=5;IMF=0.625;DP=8;VDB=0.217232;SGB=-0.556411;MQSB=0.900802;MQ0F=0;AC=1;AN=1;DP4=3,1,2,2;MQ=60	GT:PL	1:51,15
+0_segment0_pilon_pilon_pilon_pilon	872785	.	CGGGGG	CGGGGGG	30.4183	.	INDEL;IDV=4;IMF=1;DP=4;VDB=0.703527;SGB=-0.556411;MQ0F=0;AC=1;AN=1;DP4=0,0,4,0;MQ=60	GT:PL	1:60,0
+0_segment0_pilon_pilon_pilon_pilon	877298	.	CA	C	73	.	INDEL;IDV=5;IMF=1;DP=5;VDB=0.82249;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,1,4,0;MQ=60	GT:PL	1:100,0
+0_segment0_pilon_pilon_pilon_pilon	877605	.	CGGG	CGGGG	51	.	INDEL;IDV=6;IMF=0.857143;DP=7;VDB=0.329396;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,1,0,4;MQ=60	GT:PL	1:79,1
+0_segment0_pilon_pilon_pilon_pilon	877910	.	CGGGG	CGGGGG	85	.	INDEL;IDV=7;IMF=1;DP=7;VDB=0.0278409;SGB=-0.636426;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,6,1;MQ=60	GT:PL	1:115,0
+0_segment0_pilon_pilon_pilon_pilon	962617	.	ACCCC	ACCCCC	107	.	INDEL;IDV=11;IMF=1;DP=11;VDB=0.765622;SGB=-0.670168;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,1,2,8;MQ=60	GT:PL	1:134,0
+0_segment0_pilon_pilon_pilon_pilon	967022	.	TCCCC	TCCCCC	122	.	INDEL;IDV=13;IMF=0.764706;DP=17;VDB=0.557033;SGB=-0.680642;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=4,1,4,8;MQ=60	GT:PL	1:149,0
+0_segment0_pilon_pilon_pilon_pilon	968449	.	C	CCCCG	133	.	INDEL;IDV=3;IMF=0.75;DP=4;VDB=0.202231;SGB=-0.556411;MQ0F=0;AC=1;AN=1;DP4=0,0,0,4;MQ=58	GT:PL	1:163,0
+0_segment0_pilon_pilon_pilon_pilon	968753	.	GCCCCC	GCCCC	17.0088	.	INDEL;IDV=6;IMF=0.75;DP=8;VDB=0.00314254;SGB=-0.590765;MQSB=0.333333;MQ0F=0;AC=1;AN=1;DP4=2,1,0,5;MQ=50	GT:PL	1:50,6
+0_segment0_pilon_pilon_pilon_pilon	969656	.	CGGG	CGG	79	.	INDEL;IDV=12;IMF=1;DP=12;VDB=0.0475124;SGB=-0.670168;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,1,0,10;MQ=58	GT:PL	1:115,9
+0_segment0_pilon_pilon_pilon_pilon	970187	.	G	C	188	.	DP=11;VDB=0.0390947;SGB=-0.670168;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,2,8;MQ=60	GT:PL	1:218,0
+0_segment0_pilon_pilon_pilon_pilon	970193	.	A	G	128	.	DP=11;VDB=0.00323009;SGB=-0.662043;MQ0F=0;AC=1;AN=1;DP4=0,0,0,9;MQ=60	GT:PL	1:158,0
+0_segment0_pilon_pilon_pilon_pilon	971105	.	CTTT	CTT	96	.	INDEL;IDV=11;IMF=1;DP=11;VDB=0.141079;SGB=-0.636426;MQSB=0.924449;MQ0F=0;AC=1;AN=1;DP4=4,0,3,4;MQ=58	GT:PL	1:144,21
+0_segment0_pilon_pilon_pilon_pilon	971156	.	AGG	AG	5.79984	.	INDEL;IDV=5;IMF=0.625;DP=8;VDB=0.308129;SGB=-0.556411;MQSB=0.992367;MQ0F=0;AC=1;AN=1;DP4=3,1,1,3;MQ=60	GT:PL	1:87,55
+0_segment0_pilon_pilon_pilon_pilon	971674	.	GCCCCC	GCCCC	19.4636	.	INDEL;IDV=3;IMF=1;DP=3;VDB=0.154358;SGB=-0.511536;MQ0F=0;AC=1;AN=1;DP4=0,0,0,3;MQ=60	GT:PL	1:49,0
+0_segment0_pilon_pilon_pilon_pilon	974975	.	CGGGG	CGGGGG	63	.	INDEL;IDV=6;IMF=1;DP=6;VDB=0.0396801;SGB=-0.616816;MQ0F=0;AC=1;AN=1;DP4=0,0,0,6;MQ=60	GT:PL	1:93,0
+0_segment0_pilon_pilon_pilon_pilon	1092834	.	C	T	8.99921	.	DP=2;VDB=0.02;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,0,2;MQ=60	GT:PL	1:38,0
+0_segment0_pilon_pilon_pilon_pilon	1092835	.	C	T	8.99921	.	DP=2;VDB=0.02;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,0,2;MQ=60	GT:PL	1:38,0
+0_segment0_pilon_pilon_pilon_pilon	1092875	.	C	T	111	.	DP=8;VDB=0.0339506;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,1,7;MQ=60	GT:PL	1:141,0
+0_segment0_pilon_pilon_pilon_pilon	1092891	.	G	GTT	68	.	INDEL;IDV=8;IMF=0.8;DP=10;VDB=0.0257451;SGB=-0.590765;MQSB=0.733186;MQ0F=0;AC=1;AN=1;DP4=1,4,2,3;MQ=58	GT:PL	1:113,18
+0_segment0_pilon_pilon_pilon_pilon	1092996	.	CGG	CGGG	195	.	INDEL;IDV=13;IMF=0.764706;DP=17;VDB=0.176723;SGB=-0.676189;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=3,3,6,5;MQ=60	GT:PL	1:230,8
+0_segment0_pilon_pilon_pilon_pilon	1094286	.	CCGC	CC	52	.	INDEL;IDV=2;IMF=1;DP=2;VDB=0.06;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,2,0;MQ=60	GT:PL	1:82,0
+0_segment0_pilon_pilon_pilon_pilon	1152867	.	CGGGGG	CGGGGGG	4.48723	.	INDEL;IDV=5;IMF=0.714286;DP=7;VDB=0.000355303;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=3,0,3,1;MQ=60	GT:PL	1:50,20
+0_segment0_pilon_pilon_pilon_pilon	1153045	.	C	G	3.22451	.	DP=7;VDB=0.06;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,2,0;MQ=60	GT:PL	1:30,0
+0_segment0_pilon_pilon_pilon_pilon	1153046	.	CGGGGG	CGGGG	17.9764	.	INDEL;IDV=7;IMF=1;DP=7;VDB=0.470665;SGB=-0.590765;MQ0F=0;AC=1;AN=1;DP4=2,0,5,0;MQ=60	GT:PL	1:52,7
+0_segment0_pilon_pilon_pilon_pilon	1153626	.	C	CT	76	.	INDEL;IDV=10;IMF=1;DP=10;VDB=0.0230228;SGB=-0.636426;MQSB=1.00775;MQ0F=0;AC=1;AN=1;DP4=2,1,4,3;MQ=60	GT:PL	1:103,0
+0_segment0_pilon_pilon_pilon_pilon	1729365	.	GCCCCCC	GCCCCCCC	20.4535	.	INDEL;IDV=4;IMF=1;DP=4;VDB=0.0162466;SGB=-0.556411;MQ0F=0;AC=1;AN=1;DP4=0,0,0,4;MQ=60	GT:PL	1:50,0
+0_segment0_pilon_pilon_pilon_pilon	1921344	.	AGGGGGG	AGGGGGGG	20.4535	.	INDEL;IDV=3;IMF=0.75;DP=4;VDB=0.0751808;SGB=-0.556411;MQ0F=0;AC=1;AN=1;DP4=0,0,0,4;MQ=60	GT:PL	1:50,0
+0_segment0_pilon_pilon_pilon_pilon	1938027	.	AGG	AG	40.0271	.	INDEL;IDV=5;IMF=1;DP=5;VDB=0.828314;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,1,4,0;MQ=60	GT:PL	1:76,9
+0_segment0_pilon_pilon_pilon_pilon	2010657	.	CGGGGG	CGGGGGG	23.307	.	INDEL;IDV=4;IMF=1;DP=4;VDB=0.378793;SGB=-0.511536;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,2,1;MQ=60	GT:PL	1:50,0
+0_segment0_pilon_pilon_pilon_pilon	2080196	.	TGGGGG	TGGGGGG	42.1147	.	INDEL;IDV=5;IMF=0.714286;DP=7;VDB=0.836419;SGB=-0.590765;MQSB=1.01283;MQ0F=0;AC=1;AN=1;DP4=1,1,3,2;MQ=60	GT:PL	1:69,0
+0_segment0_pilon_pilon_pilon_pilon	2080295	.	C	T	176	.	DP=9;VDB=0.193492;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,6,2;MQ=60	GT:PL	1:206,0
+0_segment0_pilon_pilon_pilon_pilon	2080298	.	G	C	186	.	DP=9;VDB=0.195133;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,6,2;MQ=60	GT:PL	1:216,0
+0_segment0_pilon_pilon_pilon_pilon	2080299	.	G	A	181	.	DP=9;VDB=0.196783;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,6,2;MQ=60	GT:PL	1:211,0
+0_segment0_pilon_pilon_pilon_pilon	2080302	.	C	G	173	.	DP=9;VDB=0.198441;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,6,2;MQ=60	GT:PL	1:203,0
+0_segment0_pilon_pilon_pilon_pilon	2080304	.	G	C	152	.	DP=9;VDB=0.321601;SGB=-0.636426;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,5,2;MQ=60	GT:PL	1:182,0
+0_segment0_pilon_pilon_pilon_pilon	2080747	.	GA	G	22.2025	.	INDEL;IDV=4;IMF=1;DP=4;VDB=0.0138351;SGB=-0.453602;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,0,0,2;MQ=60	GT:PL	1:49,0
+0_segment0_pilon_pilon_pilon_pilon	2188468	.	GCCCCCC	GCCCCCCC	12.6563	.	INDEL;IDV=3;IMF=1;DP=3;VDB=0.126715;SGB=-0.511536;MQ0F=0;AC=1;AN=1;DP4=0,0,0,3;MQ=60	GT:PL	1:42,0
+0_segment0_pilon_pilon_pilon_pilon	2242268	.	C	T	148	.	DP=8;VDB=0.0256122;SGB=-0.636426;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,6,1;MQ=52	GT:PL	1:178,0
+0_segment0_pilon_pilon_pilon_pilon	2242271	.	T	G	134	.	DP=9;VDB=0.0256122;SGB=-0.636426;RPB=1;MQB=1;MQSB=1;BQB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,6,1;MQ=53	GT:PL	1:162,1
+0_segment0_pilon_pilon_pilon_pilon	2242272	.	T	C	103	.	DP=9;VDB=0.0264851;SGB=-0.636426;RPB=1;MQB=1;MQSB=1;BQB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,6,1;MQ=53	GT:PL	1:139,9
+0_segment0_pilon_pilon_pilon_pilon	2245035	.	TGGGGGG	TGGGGGGG	16.1532	.	INDEL;IDV=4;IMF=0.666667;DP=6;VDB=0.967177;SGB=-0.590765;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,0,5;MQ=43	GT:PL	1:43,0
+0_segment0_pilon_pilon_pilon_pilon	2400613	.	CGGGGG	CGGGGGG	37.3472	.	INDEL;IDV=4;IMF=0.571429;DP=7;VDB=0.000626099;SGB=-0.616816;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,0,6;MQ=60	GT:PL	1:64,0
+0_segment0_pilon_pilon_pilon_pilon	2445242	.	T	G	3.7766	.	DP=2;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:31,0
+0_segment0_pilon_pilon_pilon_pilon	2510097	.	CGGGG	CGGGGG	98	.	INDEL;IDV=11;IMF=0.916667;DP=12;VDB=0.235908;SGB=-0.670168;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,1,8,2;MQ=60	GT:PL	1:125,0
+0_segment0_pilon_pilon_pilon_pilon	2560223	.	CGGGG	CGGGGG	58	.	INDEL;IDV=12;IMF=0.923077;DP=13;VDB=0.00992556;SGB=-0.670168;MQ0F=0;AC=1;AN=1;DP4=0,3,0,10;MQ=39	GT:PL	1:88,3
+0_segment0_pilon_pilon_pilon_pilon	2565926	.	CGGGG	CGGG	76	.	INDEL;IDV=9;IMF=0.818182;DP=11;VDB=0.312001;SGB=-0.662043;MQSB=0.166667;MQ0F=0.181818;AC=1;AN=1;DP4=1,1,8,1;MQ=29	GT:PL	1:103,0
+0_segment0_pilon_pilon_pilon_pilon	2692243	.	A	AT	53	.	INDEL;IDV=9;IMF=0.642857;DP=14;VDB=0.998361;SGB=-0.616816;MQSB=0.566154;MQ0F=0.142857;AC=1;AN=1;DP4=2,6,3,3;MQ=31	GT:PL	1:94,14
+0_segment0_pilon_pilon_pilon_pilon	2797018	.	CGGGGG	CGGGGGG	56	.	INDEL;IDV=9;IMF=1;DP=9;VDB=0.0195328;SGB=-0.662043;MQ0F=0;AC=1;AN=1;DP4=0,0,9,0;MQ=60	GT:PL	1:86,0
+0_segment0_pilon_pilon_pilon_pilon	2813226	.	CGGGGG	CGGGGGG	36.9141	.	INDEL;IDV=13;IMF=1;DP=13;VDB=0.0214387;SGB=-0.636426;MQSB=0.961166;MQ0F=0;AC=1;AN=1;DP4=5,1,1,6;MQ=60	GT:PL	1:68,4
+0_segment0_pilon_pilon_pilon_pilon	2813338	.	CG	C	81	.	INDEL;IDV=2;IMF=0.142857;DP=14;VDB=0.529691;SGB=-0.676189;MQSB=0.927743;MQ0F=0;AC=1;AN=1;DP4=1,2,5,6;MQ=58	GT:PL	1:142,34
+0_segment0_pilon_pilon_pilon_pilon	2813339	.	GA	G	68	.	INDEL;IDV=11;IMF=0.785714;DP=14;VDB=0.506022;SGB=-0.670168;MQSB=0.927743;MQ0F=0;AC=1;AN=1;DP4=1,3,5,5;MQ=58	GT:PL	1:110,15
+0_segment0_pilon_pilon_pilon_pilon	2857841	.	TG	T	24.8882	.	INDEL;IDV=2;IMF=0.333333;DP=6;VDB=0.0769344;SGB=-0.511536;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,1,2,1;MQ=60	GT:PL	1:59,7
+0_segment0_pilon_pilon_pilon_pilon	2858019	.	TCCCC	TCCCCC	91	.	INDEL;IDV=11;IMF=0.785714;DP=14;VDB=0.00177757;SGB=-0.686358;MQ0F=0;AC=1;AN=1;DP4=0,0,0,14;MQ=60	GT:PL	1:121,0
+0_segment0_pilon_pilon_pilon_pilon	2869602	.	CGGGGGG	CGGGGGGG	3.7746	.	INDEL;IDV=2;IMF=1;DP=2;VDB=0.32;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,2,0;MQ=60	GT:PL	1:31,0
+0_segment0_pilon_pilon_pilon_pilon	2986664	.	GCCCCCC	GCCCCCCC	59	.	INDEL;IDV=13;IMF=0.928571;DP=14;VDB=0.839565;SGB=-0.670168;MQSB=0.966012;MQ0F=0;AC=1;AN=1;DP4=4,0,3,7;MQ=60	GT:PL	1:86,0
+0_segment0_pilon_pilon_pilon_pilon	3002925	.	AGGGGGG	AGGGGGGG	10.2304	.	INDEL;IDV=6;IMF=0.857143;DP=7;VDB=0.00859737;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=3,0,2,2;MQ=60	GT:PL	1:42,5
+0_segment0_pilon_pilon_pilon_pilon	3003320	.	A	C	98	.	DP=7;VDB=0.421219;SGB=-0.616816;MQ0F=0;AC=1;AN=1;DP4=0,0,6,0;MQ=52	GT:PL	1:128,0
+0_segment0_pilon_pilon_pilon_pilon	3109049	.	GCCCCCCCC	GCCCCCCCCCCCCC	81	.	INDEL;IDV=24;IMF=0.5;DP=48;VDB=0.251948;SGB=-0.691153;MQSB=0.960005;MQ0F=0;AC=1;AN=1;DP4=4,26,8,10;MQ=58	GT:PL	1:255,146
+0_segment0_pilon_pilon_pilon_pilon	3218449	.	CA	C	22.4391	.	INDEL;IDV=3;IMF=1;DP=3;VDB=0.764235;SGB=-0.511536;MQ0F=0;AC=1;AN=1;DP4=0,0,3,0;MQ=60	GT:PL	1:52,0
+0_segment0_pilon_pilon_pilon_pilon	3219808	.	C	T	14.9529	.	DP=5;VDB=0.0221621;SGB=-0.511536;RPB=1;MQB=1;MQSB=1;BQB=1;MQ0F=0;AC=1;AN=1;DP4=0,1,3,0;MQ=50	GT:PL	1:60,18
+0_segment0_pilon_pilon_pilon_pilon	3222099	.	CAG	C	8.13795	.	INDEL;IDV=1;IMF=1;DP=1;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,1,0;MQ=60	GT:PL	1:37,0
+0_segment0_pilon_pilon_pilon_pilon	3223654	.	GCC	GC	31.4175	.	INDEL;IDV=2;IMF=1;DP=2;VDB=0.1;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,0,2;MQ=60	GT:PL	1:61,0
+0_segment0_pilon_pilon_pilon_pilon	3225303	.	CGGGGGG	CGGGGG	48.9699	.	INDEL;IDV=11;IMF=0.916667;DP=12;VDB=0.973083;SGB=-0.662043;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=3,0,5,4;MQ=60	GT:PL	1:77,1
+0_segment0_pilon_pilon_pilon_pilon	3283623	.	T	TG	35.6081	.	INDEL;IDV=12;IMF=0.923077;DP=13;VDB=0.705787;SGB=-0.651104;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=3,2,2,6;MQ=60	GT:PL	1:133,70
+0_segment0_pilon_pilon_pilon_pilon	3364927	.	CA	C	112	.	INDEL;IDV=7;IMF=1;DP=7;VDB=0.00153946;SGB=-0.636426;MQ0F=0;AC=1;AN=1;DP4=0,0,7,0;MQ=60	GT:PL	1:142,0
+0_segment0_pilon_pilon_pilon_pilon	3365325	.	CA	CAA	90	.	INDEL;IDV=5;IMF=1;DP=5;VDB=0.281015;SGB=-0.590765;MQ0F=0;AC=1;AN=1;DP4=0,0,5,0;MQ=60	GT:PL	1:120,0
+0_segment0_pilon_pilon_pilon_pilon	3366075	.	CGGGGG	CGGGGGG	41.1965	.	INDEL;IDV=9;IMF=1;DP=9;VDB=0.659154;SGB=-0.636426;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,1,0,7;MQ=60	GT:PL	1:68,0
+0_segment0_pilon_pilon_pilon_pilon	3637248	.	CT	C	177	.	INDEL;IDV=12;IMF=1;DP=12;VDB=0.00212774;SGB=-0.670168;MQSB=0.95494;MQ0F=0;AC=1;AN=1;DP4=2,0,3,7;MQ=60	GT:PL	1:204,0
+0_segment0_pilon_pilon_pilon_pilon	3637517	.	C	G	7.30814	.	DP=4;VDB=0.617121;SGB=-0.511536;MQ0F=0;AC=1;AN=1;DP4=0,0,0,3;MQ=60	GT:PL	1:36,0
+0_segment0_pilon_pilon_pilon_pilon	3643279	.	GCCACCCCGGACCACACCACCC	GCCACCC	121	.	INDEL;IDV=3;IMF=1;DP=3;VDB=0.470313;SGB=-0.511536;MQ0F=0;AC=1;AN=1;DP4=0,0,0,3;MQ=60	GT:PL	1:151,0
+0_segment0_pilon_pilon_pilon_pilon	3643343	.	C	A	89	.	DP=6;VDB=0.25494;SGB=-0.590765;MQ0F=0;AC=1;AN=1;DP4=0,0,0,5;MQ=60	GT:PL	1:119,0
+0_segment0_pilon_pilon_pilon_pilon	3643479	.	GCCC	GCC	32.739	.	INDEL;IDV=10;IMF=0.714286;DP=14;VDB=0.151669;SGB=-0.636426;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=3,4,0,7;MQ=60	GT:PL	1:106,46
+0_segment0_pilon_pilon_pilon_pilon	3652269	.	CGGGGG	CGGGGGG	17.3669	.	INDEL;IDV=4;IMF=1;DP=4;VDB=0.0213352;SGB=-0.511536;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,0,0,3;MQ=60	GT:PL	1:44,0
+0_segment0_pilon_pilon_pilon_pilon	3667681	.	A	G	111	.	DP=6;VDB=0.462817;SGB=-0.590765;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,1,4;MQ=60	GT:PL	1:141,0
+0_segment0_pilon_pilon_pilon_pilon	3667682	.	G	C	140	.	DP=6;VDB=0.269736;SGB=-0.616816;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,0,2,4;MQ=60	GT:PL	1:170,0
+0_segment0_pilon_pilon_pilon_pilon	3758449	.	TCCCCC	TCCCCCC	75	.	INDEL;IDV=11;IMF=0.785714;DP=14;VDB=0.933834;SGB=-0.676189;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=1,2,7,4;MQ=60	GT:PL	1:107,5
+0_segment0_pilon_pilon_pilon_pilon	3764855	.	T	G	30.4183	.	DP=2;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:60,0
+0_segment0_pilon_pilon_pilon_pilon	3764861	.	C	G	30.4183	.	DP=2;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:60,0
+0_segment0_pilon_pilon_pilon_pilon	3764867	.	C	A	15.5373	.	DP=2;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:45,0
+0_segment0_pilon_pilon_pilon_pilon	3764870	.	C	G	29.4193	.	DP=2;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:59,0
+0_segment0_pilon_pilon_pilon_pilon	3765521	.	C	G	8.99921	.	DP=1;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:38,0
+0_segment0_pilon_pilon_pilon_pilon	3886726	.	T	A	127	.	DP=8;VDB=0.00229882;SGB=-0.651104;MQ0F=0;AC=1;AN=1;DP4=0,0,8,0;MQ=60	GT:PL	1:157,0
+0_segment0_pilon_pilon_pilon_pilon	3926543	.	ACCGGCGGGTGGCTGTGGGGTAGCGGCGGAGCTGGCGGGGCCGGCGGGT	ACCGGCGGGT	28.2931	.	INDEL;IDV=1;IMF=0.5;DP=2;VDB=0.86;SGB=-0.379885;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,1,1,0;MQ=60	GT:PL	1:55,0
+0_segment0_pilon_pilon_pilon_pilon	3930226	.	C	CCG	27.2624	.	INDEL;IDV=1;IMF=0.5;DP=2;VDB=0.82;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=1,0,1,0;MQ=52	GT:PL	1:54,0
+0_segment0_pilon_pilon_pilon_pilon	3931198	.	C	CCG	164	.	INDEL;IDV=6;IMF=0.857143;DP=7;VDB=0.000498;SGB=-0.636426;MQ0F=0;AC=1;AN=1;DP4=0,0,0,7;MQ=60	GT:PL	1:194,0
+0_segment0_pilon_pilon_pilon_pilon	4015173	.	GCCCCC	GCCCC	19.2591	.	INDEL;IDV=6;IMF=1;DP=6;VDB=0.0846985;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,0,0,4;MQ=60	GT:PL	1:46,0
+0_segment0_pilon_pilon_pilon_pilon	4015185	.	GCC	GCCC	38.1257	.	INDEL;IDV=5;IMF=0.833333;DP=6;VDB=0.0568748;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=2,0,0,4;MQ=60	GT:PL	1:65,0
+0_segment0_pilon_pilon_pilon_pilon	4015277	.	CA	CAA	25.4267	.	INDEL;IDV=2;IMF=1;DP=2;VDB=0.06;SGB=-0.453602;MQ0F=0;AC=1;AN=1;DP4=0,0,0,2;MQ=60	GT:PL	1:55,0
+0_segment0_pilon_pilon_pilon_pilon	4019343	.	CA	C	72	.	INDEL;IDV=4;IMF=1;DP=4;VDB=0.0127498;SGB=-0.556411;MQ0F=0;AC=1;AN=1;DP4=0,0,0,4;MQ=60	GT:PL	1:102,0
+0_segment0_pilon_pilon_pilon_pilon	4022102	.	GCCC	GCCCC	135	.	INDEL;IDV=16;IMF=0.727273;DP=22;VDB=0.853061;SGB=-0.689466;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=4,2,4,12;MQ=60	GT:PL	1:209,47
+0_segment0_pilon_pilon_pilon_pilon	4180699	.	GCC	GC	5.7555	.	INDEL;IDV=1;IMF=1;DP=1;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,1,0;MQ=60	GT:PL	1:34,0
+0_segment0_pilon_pilon_pilon_pilon	4183193	.	GC	GCC	17.6901	.	INDEL;IDV=5;IMF=0.833333;DP=6;VDB=0.773942;SGB=-0.556411;MQSB=1;MQ0F=0;AC=1;AN=1;DP4=0,2,4,0;MQ=60	GT:PL	1:91,46
+0_segment0_pilon_pilon_pilon_pilon	4184047	.	A	G	9.88514	.	DP=2;SGB=-0.379885;MQ0F=0;AC=1;AN=1;DP4=0,0,0,1;MQ=60	GT:PL	1:39,0

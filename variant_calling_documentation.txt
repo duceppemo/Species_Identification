@@ -1,0 +1,193 @@
+MAR 18 2020 
+
+PORECHOP: 
+porechop -i '/media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196_reads/pass.fastq.gz' -o '/media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196_reads/trimmed_MBWGS196.fastq.gz' --threads 12
+
+FILTLONG:
+filtlong --min_length 6500 -1 '/media/10TB_raid10/data/Andrea/illumina/shortreads/196/MBWGS196_R1.fastq.gz' -2 '/media/10TB_raid10/data/Andrea/illumina/shortreads/196/MBWGS196_R2.fastq.gz' --keep_percent 90 --target_bases 400000000 /media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196_reads/trimmed/trimmed_MBWGS196.fastq.gz > filtered_reads_MBWGS196.fastq.gz
+
+MAKING A BAM FILE:
+
+
+VARIANT CALLING: Need a vcf file for training clair
+
+IN medaka env 
+/media/10TB_raid10/data/Andrea/nanopore/
+
+medaka_variant -i /home/bioinfo/clair-training/r9_Flongle/MBWGS196_minimap_ont.bam -f /media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/pilon/MBWGS196_polished_3.fasta -o media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/pilon/MBWGS196_polished_3.fasta/medaka_variant -s r941_min_high_g344 -t 12
+
+
+WITH bcf tools 
+ bcftools mpileup --threads 12 -O u --fasta-ref /media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/pilon/MBWGS196_polished_3.fasta  /home/bioinfo/clair-training/r9_Flongle/MBWGS196_minimap_ont.bam | bcftools call -Ov -m -v -o MBWGS196_variants.vcf --threads 12 --ploidy 1
+
+ VCF FILTERING:
+
+
+
+ CLAIR
+
+ PATH_TO_READS='/media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196_reads/pass.fastq.gz'
+ VCF_FILE_PATH='VCF written to /media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/medaka_variant/round_1.vcf'
+ REFERENCE_FILE_PATH='/media/10TB_raid10/data/Andrea/nanopore/NP_20200227/gupout_3.4.5/MBWGS196/filtered_pass/MBWGS196/pilon/MBWGS196_polished_3.fasta'
+ BAM_FILE_PATH='/home/bioinfo/clair-training/r9_Flongle/MBWGS196_minimap_ont.bam'
+ SUBSAMPLED_BAMS_FOLDER_PATH='/home/bioinfo/clair-training/r9_Flongle/subsampled'
+
+
+DEPTHS=(800 400 200 100)
+
+# set to the number of CPU cores you have
+THREADS=24
+
+# downsampling
+for i in "${!DEPTHS[@]}"
+do
+  samtools view -@ ${THREADS} -s ${i}.${DEPTHS[i]} -b ${BAM_FILE_PATH} \
+  > ${SUBSAMPLED_BAMS_FOLDER_PATH}/0.${DEPTHS[i]}.bam
+  samtools index -@ ${THREADS} ${SUBSAMPLED_BAMS_FOLDER_PATH}/0.${DEPTHS[i]}.bam
+done
+
+# add symbolic links for the orginal (full coverage) BAM
+ln -s ${BAM_FILE_PATH} ${SUBSAMPLED_BAMS_FOLDER_PATH}/1.000.bam
+ln -s ${BAM_FILE_PATH}.bai ${SUBSAMPLED_BAMS_FOLDER_PATH}/1.000.bam.bai
+
+CLAIR="[PATH_TO_CLAIR]/clair.py"                               # e.g. clair.py
+PYPY="[PYPY_BIN_PATH]"                                         # e.g. pypy3
+
+VCF_FILE_PATH="[YOUR_VCF_FILE_PATH]"                           # e.g. hg001.vcf.gz
+BAM_FILE_PATH="[YOUR_BAM_FILE_PATH]"                           # e.g. hg001.bam
+REFERENCE_FILE_PATH="[YOUR_FASTA_FILE_PATH]"                   # e.g. hg001.fasta
+
+# dataset output folder (the directory will be created later)
+DATASET_FOLDER_PATH="[OUTPUT_DATASET_FOLDER_PATH]"
+
+# array of coverages, (1.000) if downsampling was not used
+DEPTHS=(1.000 0.800)
+
+# where to find the BAMs prefixed as the elements in the DEPTHS array (e.g. 1.000.bam 0.800.bam)
+# please refer to the `Preprocessing: Downsampling a sample` section
+SUBSAMPLED_BAMS_FOLDER_PATH="[SUBSAMPLED_BAMS_FOLDER_PATH]"
+
+# chromosome prefix ("chr" if chromosome names have the "chr"-prefix)
+CHR_PREFIX=""
+
+# array of chromosomes (do not include "chr"-prefix)
+CHR=(21 22 X)
+
+# number of cores to be used
+THREADS=24
+
+# for multiple memory intensive steps, this number of cores will be used
+THREADS_LOW=10
+
+DEPTHS_PER_SAMPLE=${#DEPTHS[@]}
+ESTIMATED_SPLIT_NO_OF_LINES=$((180000 * $DEPTHS_PER_SAMPLE))
+MINIMUM_COVERAGE=4
+
+VARIANT_FOLDER_PATH="${DATASET_FOLDER_PATH}/var"
+CANDIDATE_FOLDER_PATH="${DATASET_FOLDER_PATH}/can"
+TENSOR_VARIANT_FOLDER_PATH="${DATASET_FOLDER_PATH}/tensor_var"
+TENSOR_CANDIDATE_FOLDER_PATH="${DATASET_FOLDER_PATH}/tensor_can"
+TENSOR_PAIR_FOLDER_PATH="${DATASET_FOLDER_PATH}/tensor_pair"
+SHUFFLED_TENSORS_FOLDER_PATH="${DATASET_FOLDER_PATH}/all_shuffled_tensors"
+BINS_FOLDER_PATH="${DATASET_FOLDER_PATH}/all_bins"
+
+mkdir ${DATASET_FOLDER_PATH}
+cd ${DATASET_FOLDER_PATH}
+mkdir ${VARIANT_FOLDER_PATH}
+mkdir ${CANDIDATE_FOLDER_PATH}
+mkdir ${TENSOR_VARIANT_FOLDER_PATH}
+mkdir ${TENSOR_CANDIDATE_FOLDER_PATH}
+mkdir ${TENSOR_PAIR_FOLDER_PATH}
+mkdir ${SHUFFLED_TENSORS_FOLDER_PATH}
+mkdir ${BINS_FOLDER_PATH}
+
+# create directories for different coverages
+for j in "${!DEPTHS[@]}"
+do
+  cd ${TENSOR_VARIANT_FOLDER_PATH}
+  mkdir ${DEPTHS[j]}
+
+  cd ${TENSOR_CANDIDATE_FOLDER_PATH}
+  mkdir ${DEPTHS[j]}
+
+  cd ${TENSOR_PAIR_FOLDER_PATH}
+  mkdir ${DEPTHS[j]}
+done
+
+cd ${DATASET_FOLDER_PATH}
+
+parallel --joblog ./get_truth.log -j${THREADS} \
+"${PYPY} ${CLAIR} GetTruth \
+--vcf_fn ${VCF_FILE_PATH} \
+--var_fn ${VARIANT_FOLDER_PATH}/var_{1} \
+--ctgName ${CHR_PREFIX}{1}" ::: ${CHR[@]}
+
+# merge all truth variants into a single file (named all_var)
+cat ${VARIANT_FOLDER_PATH}/var_* > ${VARIANT_FOLDER_PATH}/all_var
+
+parallel --joblog ./evc.log -j${THREADS} \
+"${PYPY} ${CLAIR} ExtractVariantCandidates \
+--bam_fn ${BAM_FILE_PATH} \
+--ref_fn ${REFERENCE_FILE_PATH} \
+--can_fn ${CANDIDATE_FOLDER_PATH}/can_{1} \
+--ctgName ${CHR_PREFIX}{1} \
+--gen4Training" ::: ${CHR[@]}
+
+parallel --joblog ./create_tensor_var.log -j${THREADS} \
+"${PYPY} ${CLAIR} CreateTensor \
+--bam_fn ${SUBSAMPLED_BAMS_FOLDER_PATH}/{1}.bam \
+--ref_fn ${REFERENCE_FILE_PATH} \
+--can_fn ${VARIANT_FOLDER_PATH}/var_{2} \
+--minCoverage ${MINIMUM_COVERAGE} \
+--tensor_fn ${TENSOR_VARIANT_FOLDER_PATH}/{1}/tensor_var_{2} \
+--ctgName ${CHR_PREFIX}{2}" ::: ${DEPTHS[@]} ::: ${CHR[@]}
+
+parallel --joblog ./create_tensor_can.log -j${THREADS} \
+"${PYPY} ${CLAIR} CreateTensor \
+--bam_fn ${SUBSAMPLED_BAMS_FOLDER_PATH}/{1}.bam \
+--ref_fn ${REFERENCE_FILE_PATH} \
+--can_fn ${CANDIDATE_FOLDER_PATH}/can_{2} \
+--minCoverage ${MINIMUM_COVERAGE} \
+--tensor_fn ${TENSOR_CANDIDATE_FOLDER_PATH}/{1}/tensor_can_{2} \
+--ctgName ${CHR_PREFIX}{2}" ::: ${DEPTHS[@]} ::: ${CHR[@]}
+
+parallel --joblog ./create_tensor_pair.log -j${THREADS} \
+"${PYPY} ${CLAIR} PairWithNonVariants \
+--tensor_can_fn ${TENSOR_CANDIDATE_FOLDER_PATH}/{1}/tensor_can_{2} \
+--tensor_var_fn ${TENSOR_VARIANT_FOLDER_PATH}/{1}/tensor_var_{2} \
+--output_fn ${TENSOR_PAIR_FOLDER_PATH}/{1}/tensor_pair_{2} \
+--amp 2" ::: ${DEPTHS[@]} ::: ${CHR[@]}
+
+
+ls tensor_pair/*/tensor_pair* | \
+parallel --joblog ./uncompress_tensors.log -j${THREADS_LOW} -N2 \
+--line-buffer --shuf --verbose --compress stdbuf -i0 -o0 -e0 pigz -p4 -dc ::: | \
+parallel --joblog ./round_robin_cat.log -j${THREADS} \
+--line-buffer --pipe -N1000 --no-keep-order --round-robin --compress \
+"split - -l ${ESTIMATED_SPLIT_NO_OF_LINES} --filter='shuf | pigz -p4 > \$FILE.gz' -d ${SHUFFLED_TENSORS_FOLDER_PATH}/split_{#}_"
+
+ls ${SHUFFLED_TENSORS_FOLDER_PATH}/split_* | \
+parallel --joblog ./tensor2Bin.log -j${THREADS_LOW} \
+"python ${CLAIR} Tensor2Bin \
+--tensor_fn {} \
+--var_fn ${VARIANT_FOLDER_PATH}/all_var \
+--bin_fn ${BINS_FOLDER_PATH}/{/.}.bin \
+--allow_duplicate_chr_pos"
+
+
+cd ${DATASET_FOLDER_PATH}
+python ${CLAIR} CombineBins
+
+CLAIR="[PATH_TO_CLAIR]/clair.py"
+MODEL_NAME=[YOUR_MODEL_NAME]                                 # e.g. "001"
+MODEL_FOLDER_PATH="[YOUR_MODEL_FOLDER_PATH]/${MODEL_NAME}"
+TENSOR_FILE_PATH=[YOUR_BIN_FILE_PATH]                        # e.g. ./tensor.bin
+
+mkdir ${MODEL_FOLDER_PATH}
+
+# set which gpu to use
+export CUDA_VISIBLE_DEVICES="0"
+
+python $CLAIR train \
+--bin_fn "$TENSOR_FILE_PATH" \
+--ochk_prefix "${MODEL_FOLDER_PATH}/model"
