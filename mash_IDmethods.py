@@ -1,4 +1,5 @@
 import subprocess, os, argparse, pandas, gzip
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from concurrent import futures
@@ -152,7 +153,7 @@ class IdentificationMethods:
                         if counter == 0:
                             counter += 1
                         elif counter == 1:
-                            bp_count += len(line.split('\n')[0])
+                            bp_count += len(line.decode('ascii').split('\n')[0])
 
                             counter += 1
                         elif counter == 2:
@@ -161,7 +162,9 @@ class IdentificationMethods:
                             counter = 0
 
             except UnicodeDecodeError:
+
                 with gzip.open(sample_dict[sample_name], "r") as ftr:
+                    print(sample_dict[sample_name])
                     for line in ftr:
                         if counter == 0:
                             counter += 1
@@ -173,7 +176,7 @@ class IdentificationMethods:
                         elif counter == 3:
                             counter = 0
 
-            coverage = round(bp_count / 100000)
+            coverage = round(bp_count / 1000000)
             tsv_df = pandas.read_csv(tsv_path, sep='\t', usecols=['hash_match', 'query_match'])  # get query information
             hash_match = tsv_df['hash_match'].tolist()
             query_match = tsv_df['query_match'].tolist()
@@ -190,8 +193,8 @@ class IdentificationMethods:
         df = df.reset_index()
         df.columns = col_names
         df = pandas.melt(df, id_vars=['query_names'], value_vars=list(output_table.keys()))
-        df.columns = ['query names', 'hundred kb sequenced', 'percentage of shared bins']
-        df['hundred kb sequenced'] = df['hundred kb sequenced'].astype(float)
+        df.columns = ['query names', 'million bp', 'percentage of shared bins']
+        df['million bp'] = df['million bp'].astype(float)
         # remove_nan = [0 for f in df['shared bins'].tolist() if str(f) == True]
         df['percentage of shared bins'] = df['percentage of shared bins'].fillna(0)
         df['percentage of shared bins'] = list(
@@ -202,7 +205,7 @@ class IdentificationMethods:
         )
         df['percentage of shared bins'] = df['percentage of shared bins'].astype(float)
 
-        line_plt = sns.lineplot(x='hundred kb sequenced', y='percentage of shared bins', hue='query names', data=df,
+        line_plt = sns.lineplot(x='million bp', y='percentage of shared bins', hue='query names', data=df,
                                 legend='full')
         box = line_plt.get_position()
         line_plt.set_position([box.x0, box.y0, box.width * 0.85, box.height])
@@ -211,7 +214,8 @@ class IdentificationMethods:
                          title='Species')
 
         # line_plt.legend(handles=hnd, labels=lab, loc='center right', bbox_to_anchor=(1.25, 0.5), ncol=1)
-
+        print("Labels are {}".format(line_plt.get_xticklabels()))
+        # line_plt.set_xticklabels(line_plt.get_xticklabels(), rotation=45)
         line_plt.get_figure().savefig(output_graph_name, bbox_extra_artists=(lgd,), bbox_inches='tight')
 
     @staticmethod
@@ -231,8 +235,8 @@ class IdentificationMethods:
         triangle_call = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         stdout, sdterr = triangle_call.communicate()
 
-        with open(output, "wb") as ftw:
-            ftw.write(stdout)
+        with open(output, "w") as ftw:
+            ftw.write(stdout.decode('ascii'))
 
         return output
 
@@ -243,8 +247,36 @@ class IdentificationMethods:
         :param path:
         :return:
         """
-        path_dict = '/'.join(path.split('/')[:-1])
-        tsv_df = pandas.read_csv(path, sep='\t', index=0, header=0)
+
+        with open(path, "r") as ftr:
+            lines = ftr.readlines()
+            index = list(map(lambda x: [x.split('\t')[0]], lines))
+            index = index[1:]
+            values = list(map(lambda x: x.split('\t')[1:], lines))
+            values = values[2:]
+            values = list(map(lambda x: x[:-1] + x[-1].split(), values))
+
+            max_list_len = max(list(map(lambda x: len(x), values)))
+
+        fix_values = list()
+
+        for lists in values:
+            if len(lists) != max_list_len:
+                # add as many zeros we need
+                difference = max_list_len - len(lists)
+                append_zero = [0] * difference
+                new_list = lists + append_zero
+                fix_values.append(new_list)
+
+        i = 0
+        while i < len(fix_values):
+            fix_values[i] = index[i] + fix_values[i]
+            i += 1
+
+        array = np.array(fix_values)
+        array = np.flipud(array)
+
+        print(array)
 
     # @staticmethod
     # def collect_all(path, typ, ref):
@@ -422,6 +454,7 @@ class Identification(object):
                     start = IdentificationMethods.collect_paired(self.path)
 
         # start = IdentificationMethods.collect_all(self.path, self.type)
+
         screen_samples = IdentificationMethods.mash_screen(self.ref, start, self.pair)
         final_tsv = IdentificationMethods.mash_screen_parse(screen_samples)
         # IdentificationMethods.mash_visualize_rawreads(start, final_tsv, self.sample_name)
@@ -439,6 +472,8 @@ class Identification(object):
                 print("Careful! You're trying to remove your files without having used Illumina reads. \n ",
                       "We left things were they are")
 
+        # for the distance stuff
+
         # all_sketch = IdentificationMethods.sketch_all(start)
         # tsv_dict = IdentificationMethods.sketch_dist(all_sketch, self.ref)
         # IdentificationMethods.mash_output_parse(tsv_dict)
@@ -452,6 +487,7 @@ class Identification(object):
         self.pair = args.pair
         self.tree = args.tree
         self.clear = args.clear
+        self.sample_name = args.sample_name
 
         # RUN
         self.run()
@@ -468,9 +504,9 @@ if __name__ == "__main__":
     parser.add_argument("-type",
                         help="Type of input, either assembly or raw reads. Raw reads must be in file for each sample.",
                         metavar="[assemblies OR raw-reads]", required=True, dest="type")
-    # parser.add_argument("-name",
-    #                     help="REMOVE AFTER. NOT A SMART THING",
-    #                     metavar="full file path", dest="sample_name")
+    parser.add_argument("-name",
+                        help="REMOVE AFTER. NOT A SMART THING",
+                        metavar="full file path", dest="sample_name")
 
     parser.add_argument("--paired", action='store_true',
                         default=False, dest="pair", help="Provided directory is for paired end Illumina reads.")
