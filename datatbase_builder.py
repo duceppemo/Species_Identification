@@ -21,18 +21,19 @@ class FastaDir:
     def run(self):
         spec_dict = Determine.unique_species(self.path)
 
-        subprocess.run(["chmod", "777", "{}/mash_sketches".format(self.path)])  # ran into permission issues
+        # subprocess.run(["chmod", "777", "{}/mash_sketches".format(self.path)])  # ran into permission issues
         Determine.paste_it(spec_dict, self.path)
 
 
 class Determine:
-    # @staticmethod
-    # def delete_files(path, lis):
-    #     delete_path = list(map(lambda x: path + "/" + x, lis))
-    #
-    #     for f in delete_path:
-    #         print("Say bye to {}".format(f))
-    #         os.remove(f)
+    
+    @staticmethod
+    def delete_files(path, lis):
+        delete_path = list(map(lambda x: path + "/" + x, lis))
+    
+        for f in delete_path:
+            print("Say bye to {}".format(f))
+            os.remove(f)
 
     @staticmethod
     def unique_species(path):
