@@ -11,7 +11,7 @@ from scipy.spatial.distance import squareform
 
 class Dendro:
     """
-    Used for the creation of a basic dendrogram that will be saved to the same directory in which output specifies.
+    Used for the creation of a basic dendrogram that will be saved to the same directory as output specifies.
     """
 
     def __init__(self, labels, matrix, output):
@@ -419,27 +419,26 @@ class Identification(object):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Allows for the identification of raw reads via mash")
+    parser = argparse.ArgumentParser(description="Allows for the species identification of sample raw reads via mash.\nA)
     parser.add_argument("-d",
-                        help="Input directory with all assembly or read directories.", dest="path",
+                        help="Input directory with all reads or directories containing reads. Full path must be provided. Assumes long-reads if --paired is not specified.", dest="path",
                         required=True, metavar="/input/folder/")
     parser.add_argument("-ref",
-                        help="Custom reference sketch file. Default is for Mycobacterium", required=False,
+                        help="Custom reference sketch file. Default is for Mycobacterium", required=True,
                         metavar="/path/tp/file.msh", dest="ref")  # set default
     parser.add_argument("-name",
-                        help="REMOVE AFTER. NOT A SMART THING",
-                        metavar="full file path", dest="sample_name")
+                        help="Sample name. Used only in conjuction with the diagnostic_run, which assumes a single sample."
+                        metavar="PATH", dest="sample_name", required=False)
     parser.add_argument("--paired", action='store_true',
                         default=False, dest="pair",
-                        help="Provided directory is for paired end Illumina reads.")
+                        help="Provided directory is for paired end Illumina reads.", required=False)
     parser.add_argument("--diagnostic_run", action='store_true',
                         default=False, dest="diag",
-                        help="Used to create a graphical output based on all fastq in directory.")
+                        help="Used to create a graphical output based on all fastq in directory. Assumes one sample for all different reference reads.", required=False)
     parser.add_argument("--tree", action='store_true',
-                        default=False, dest="tree", help="Outputs a tree, with all sequences in input and references.")
-
+                        default=False, dest="tree", help="Outputs a dendrogram, with all sequences in input and references.")
     parser.add_argument("--clear", action='store_true',
                         default=False, dest="clear",
-                        help="Will remove the concatenated Illumina file, if Illumina reads were used")
+                        help="Will remove the concatenated Illumina file, if Illumina reads were used", required=False)
     args = parser.parse_args()
     Identification(args)
